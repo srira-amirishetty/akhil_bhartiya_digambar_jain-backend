@@ -5,16 +5,12 @@ const db = require('./db')
 db()
 
 app.use(express.json());
-const healthRoute = require('./routes/health')
+const ShayatahealthRoute = require('./routes/Shayatahealth')
 
-app.use('/',healthRoute);
+app.use('/api',ShayatahealthRoute);
+// app.use('/api',ShayataApplicationRoute)
 
 
-// app.post('/health',(req,res) => {
-//     const data = req.body
-//     console.log(data)
-//     res.send(data)
-// })
 
 app.listen(3000, () => {
     console.log("running")
