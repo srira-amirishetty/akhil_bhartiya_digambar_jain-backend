@@ -8,7 +8,7 @@ const educationSchema = new mongoose.Schema({
     expectedhelp:{type:Number},
     expectedhelp:{type:Number},
     explainindetail:{type:String},
-    img:[{data:Buffer,
+    images:[{data:Buffer,
         contentType:String
     }]
 })

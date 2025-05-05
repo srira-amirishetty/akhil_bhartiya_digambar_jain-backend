@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Form = require('../models/Form');
+const Form = require('../models/ShayataAppForm');
 
 // @route POST /api/form/submit
 router.post('/submit', async (req, res) => {

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const healthController = require('../controllers/Shayatahealth')
+const shayataController = require('../controllers/ShayataMember')
 const multer = require('multer');
 
 const storage = multer.memoryStorage();

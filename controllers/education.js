@@ -4,10 +4,10 @@ exports.health = async (req,res)  =>  {
     try{
     const data = req.body;
 
-    req.body.img = {
-        data:req.file.buffer,
-        contentType:req.file.mimetype
-    } 
+    // req.body.img = {
+    //     data:req.file.buffer,
+    //     contentType:req.file.mimetype
+    // } 
 
     if (req.files && req.files.length > 0) {
         req.body.images = req.files.map(file => ({

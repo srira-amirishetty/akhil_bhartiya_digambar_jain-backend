@@ -40,7 +40,7 @@ const ShayataApplicationSchema = new mongoose.Schema({
     },
   beneficiaryAge: Number,
   beneficiaryBirthDate: Date,
-  isTrustMember:boolean,
+  isTrustMember:Boolean,
   membershipNo:Number,
   beneficiaryCountry:String,
   beneficiaryState:String,
