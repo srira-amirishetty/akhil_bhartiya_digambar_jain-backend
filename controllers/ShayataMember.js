@@ -67,3 +67,6 @@ exports.getApplicationById = async (req, res) => {
     res.status(404).json({ error: 'Application not found' });
   }
 };
+
+
+//  get all applicants data route 
