@@ -1,4 +1,4 @@
-const Application = require('../models/Form');
+const Application = require('../models/ShayataAppForm');
 
 exports.submitForm = async (req, res) => {
   try {
