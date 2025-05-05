@@ -21,7 +21,8 @@ const personalInfoSchema = new mongoose.Schema({
   uploadByCamera: { type: String },
   socialMediaContact: { type: String },
   whatsappMobileLink: { type: String },
-  emailLink: { type: String }
+  emailLink: { type: String },
+  isPhoneVerified: { type: Boolean, default: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model('PersonalInfo', personalInfoSchema);
