@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const educationSchema = new mongoose.Schema({
-    applicant: { type: Schema.Types.ObjectId, ref: 'ShayataApplication' },
+    applicant: { type: mongoose.Schema.Types.ObjectId, ref: 'ShayataApplication' },
     typeofhelp:{type:String},
     typeofeducation:{type:String},
     institutename:{type:String},
     expectedhelp:{type:Number},
     expectedhelp:{type:Number},
     explainindetail:{type:String},
-    img:[{data:Buffer,
+    images:[{data:Buffer,
         contentType:String
     }]
 })
