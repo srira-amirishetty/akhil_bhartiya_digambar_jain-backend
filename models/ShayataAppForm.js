@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const FormSchema = new mongoose.Schema({
+  applicant: { type: mongoose.Schema.Types.ObjectId, ref: 'ShayataApplication' },
   accountHolderName: String,
   bankName: String,
   branchName: String,
