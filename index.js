@@ -1,17 +1,19 @@
-const express = require("express");
-const app = express()
-const db = require('./db')
+require('dotenv').config();
+console.log('MONGO_URI:', process.env.MONGO_URI); // 🔍 Debug line
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const db = require('./db');
 
-db()
-
+db(); // already handles mongoose.connect
+app.use(cors());
 app.use(express.json());
-const ShayatahealthRoute = require('./routes/Shayatahealth')
 
-app.use('/api',ShayatahealthRoute);
-// app.use('/api',ShayataApplicationRoute)
+// Routes
+const ShayatahealthRoute = require('./routes/Shayatahealth');
+app.use('/api', ShayatahealthRoute);
 
-
-
-app.listen(3000, () => {
-    console.log("running")
-})
+// Start server
+app.listen(5000, () => {
+  console.log('Server running on port 5000');
+});
