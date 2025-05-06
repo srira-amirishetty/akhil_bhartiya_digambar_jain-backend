@@ -10,8 +10,14 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+const memberRoutes = require('./routes/memberRoutes')
 const ShayatahealthRoute = require('./routes/Shayatahealth');
+const updatememberRoutes = require('./routes/memberUpdateRoutes')
+
+
 app.use('/api', ShayatahealthRoute);
+app.use('/api',memberRoutes)
+app.use('/api',updatememberRoutes)
 
 // Start server
 app.listen(5000, () => {

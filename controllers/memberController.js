@@ -34,3 +34,28 @@ exports.saveOtherInfo = async (req, res) => {
     res.status(500).json({ error: 'Failed to save other info', details: error.message });
   }
 };
+
+// get members
+exports.getMembers = async (req, res) => {
+  try {
+    const limit = 10;
+    const page = parseInt(req.query.page) || 1;
+    const search = req.query.search || "";
+
+    const query = search ? {
+      $or:[
+        {firstName:{ $regex: search, $options: 'i' }},
+        { middleName: { $regex: search, $options: 'i' } },
+        { surname: { $regex: search, $options: 'i' } }
+      ]
+    }:{};
+    
+
+    const members = await PersonalInfo.find(query).skip((page-1)*limit).limit(limit);
+
+    
+    res.status(201).json({data:members,page,totalPages: Math.ceil(total/limit) });
+  } catch (error) {
+    res.status(500).json({ err: error.message });
+  }
+};

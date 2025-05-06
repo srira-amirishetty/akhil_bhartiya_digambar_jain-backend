@@ -6,5 +6,6 @@ const memberController = require('../controllers/memberController');
 router.post('/personal-info', memberController.savePersonalInfo);
 router.post('/business-info', memberController.saveBusinessInfo);
 router.post('/other-info', memberController.saveOtherInfo);
+router.get('/get-members',memberController.getMembers)
 
 module.exports = router;
