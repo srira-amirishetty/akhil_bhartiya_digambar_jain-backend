@@ -21,4 +21,5 @@ router.put('/:id',upload.fields([
 // Get application by ID
 router.get('/:id', shayataController.getApplicationById);
 
+
 module.exports = router;
