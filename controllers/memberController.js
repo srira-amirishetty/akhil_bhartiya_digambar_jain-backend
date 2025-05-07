@@ -49,6 +49,8 @@ exports.getMembers = async (req, res) => {
         { surname: { $regex: search, $options: 'i' } }
       ]
     }:{};
+
+    const total = await PersonalInfo.countDocuments(query);
     
 
     const members = await PersonalInfo.find(query).skip((page-1)*limit).limit(limit);
