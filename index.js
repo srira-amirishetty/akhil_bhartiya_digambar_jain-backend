@@ -14,13 +14,15 @@ app.use(express.json());
 const ShayatahealthRoute = require('./routes/Shayatahealth')
 // const addMemberRoutes = require('./routes/addMemberRoutes')
 const ShayataeducationRoutes = require('./routes/education')
-const ShayataAppformRoute = require('./routes/shayataAppForm')
+// const ShayataAppformRoute = require('./routes/shayataAppForm')
 const ShayataMemberRoute = require('./routes/ShayataMember')
+const authorizedUser = require('./routes/authorizedUser')
 
 app.use('/api',ShayatahealthRoute);
 app.use('/api',ShayataeducationRoutes)
-app.use('/api',ShayataAppformRoute);
+// app.use('/api',ShayataAppformRoute);
 app.use('/api',ShayataMemberRoute);
+app.use('/api',authorizedUser);
 
 // Error handling middleware
 app.use(errorHandler);
