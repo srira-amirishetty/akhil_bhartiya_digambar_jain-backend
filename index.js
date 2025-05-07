@@ -14,11 +14,13 @@ app.use(express.json());
 const memberRoutes = require('./routes/memberRoutes')
 const ShayatahealthRoute = require('./routes/Shayatahealth');
 const updatememberRoutes = require('./routes/memberUpdateRoutes')
+const jainLiteratureRoutes = require('./routes/jainLiteratureRoutes');
 
 
 app.use('/api', ShayatahealthRoute);
 app.use('/api',memberRoutes)
 app.use('/api',updatememberRoutes)
+app.use('/api/jain-literature', jainLiteratureRoutes);
 
 // Start server
 app.listen(5000, () => {
