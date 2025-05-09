@@ -52,7 +52,7 @@ exports.updateApplication = async (req, res) => {
       req.body,
       { new: true }
     );
-    res.json(updated);
+    res.status(201).json(updated);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -61,12 +61,40 @@ exports.updateApplication = async (req, res) => {
 // Get application by ID
 exports.getApplicationById = async (req, res) => {
   try {
-    const app = await ShayataApplication.findById(req.params.id);
-    res.json(app);
+    const applicant = await ShayataApplication.findById(req.params.id);
+    res.status(201).json(applicant);
   } catch (error) {
-    res.status(404).json({ error: 'Application not found' });
+    res.status(404).json({ error: error.message });
   }
 };
 
 
 //  get all applicants data route 
+
+exports.getAllApplications = async (req, res) => {
+  try{
+    const applications = await ShayataApplication.find()
+    res.status(201).json(applications)
+  }catch (error){
+    res.status(404).json({error:error.message})
+  }
+}
+
+exports.searchApplicantByName = async (req,res) => {
+  try{
+    
+    const search = req.query.search || "";
+
+      const query={}
+  
+      if(search){query.name = { $regex: search, $options: 'i' }};
+  
+    const members = await ShayataApplication.find(query)
+
+    res.status(201).json({data:members});
+
+  }catch(error){
+    res.status(404).json({error:error.message})
+  }
+}
+

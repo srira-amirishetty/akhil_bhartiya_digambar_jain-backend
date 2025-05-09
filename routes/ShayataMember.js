@@ -7,19 +7,21 @@ const storage = multer.memoryStorage();
 const upload = multer({storage:storage});
 
 // Step 1: Create new application
-router.post('/',upload.fields([
+router.post('/Shayata-application',upload.fields([
     { name: 'applicantImage', maxCount: 1 },
     { name: 'beneficiaryImage', maxCount: 1 }
   ]), shayataController.createApplication);
 
 // Update application by ID
-router.put('/:id',upload.fields([
+router.put('Shayata-application-update/:id',upload.fields([
     { name: 'applicantImage', maxCount: 1 },
     { name: 'beneficiaryImage', maxCount: 1 }
   ]), shayataController.updateApplication);
 
 // Get application by ID
-router.get('/:id', shayataController.getApplicationById);
+router.get('Shayata-applicantGetbyId/:id', shayataController.getApplicationById);
+router.get('get-all-shayata-applicants',shayataController.getAllApplications)
+router.get('get-applicants-by-search',shayataController.searchApplicantByName)
 
 
 module.exports = router;

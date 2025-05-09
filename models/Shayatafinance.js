@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const financeSchema = new mongoose.Schema({
-    applicant: { type: Schema.Types.ObjectId, ref: 'ShayataApplication' },
+    applicant: { type: mongoose.Schema.Types.ObjectId, ref: 'ShayataApplication' },
     typeofhelp:{type:String},
     employeetype:{type:String},
     typeofhelp:{type:String},

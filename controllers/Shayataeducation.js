@@ -1,13 +1,13 @@
-const financeModal = require('../models/finance')
+const educationModal = require('../models/Shayataeducation')
 
-exports.finance = async (req,res)  =>  {
+exports.health = async (req,res)  =>  {
     try{
     const data = req.body;
 
-    req.body.img = {
-        data:req.file.buffer,
-        contentType:req.file.mimetype
-    } 
+    // req.body.img = {
+    //     data:req.file.buffer,
+    //     contentType:req.file.mimetype
+    // } 
 
     if (req.files && req.files.length > 0) {
         req.body.images = req.files.map(file => ({
@@ -16,15 +16,15 @@ exports.finance = async (req,res)  =>  {
         }));
       }
 
-    const financeData = new financeModal(req.body)
-    await financeData.save()
-    res.status(201).send(financeData)
+    const educationData = new educationModal(req.body)
+    await educationData.save()
+    res.status(201).send(educationData)
 }catch (error){
     res.status(400).json({error:error.message})
 }
 };
 
-exports.updatefinanceByApplicant = async (req,res) => {
+exports.updateeducationByApplicant = async (req,res) => {
     try{
 
         const {applicantId} = req.params;
@@ -38,30 +38,30 @@ exports.updatefinanceByApplicant = async (req,res) => {
             }));
           }
 
-        const updatedfinanceData = await financeModal.findByIdAndUpdate(
+        const updatededucationData = await educationModal.findByIdAndUpdate(
             {applicant:applicantId},
             updateData,
             {new:true}
         );
-        if (!updatedfinanceData) {
+        if (!updatededucationData) {
             return res.status(404).json({ message: 'Health record not found for applicant' });
           }
-        res.status(200).json(updatedfinanceData)
+        res.status(200).json(updatededucationData)
     }catch(error){
         res.status(400).json({error:error.message})
     }
 }
 
-exports.getfinancebyApplicant = async (req,res) => {
+exports.geteducationbyApplicant = async (req,res) => {
     try{
         const {applicantId} = req.params;
-        const financeData = await financeModal.findOne({applicant:applicantId});
+        const educationData = await educationModal.findOne({applicant:applicantId});
 
-        if (!financeData) {
-            return res.status(404).json({ message: 'No finance data found for this applicant' });
+        if (!educationData) {
+            return res.status(404).json({ message: 'No education data found for this applicant' });
           }
 
-        res.status(200).json(financeData);  
+        res.status(200).json(educationData);  
     }catch (error) {
         res.status(400).json({ error: error.message });
       }
