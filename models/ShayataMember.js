@@ -13,15 +13,12 @@ module.exports = mongoose.model('User', userSchema);
 
 const ShayataApplicationSchema = new mongoose.Schema({
   // Step tracking
-  step: { type: Number, default: 1 },
+  // step: { type: Number, default: 1 },
   referredUser: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
   // Applicant Details
   applicantName: String,
-  applicantImage: {
-    data:Buffer,
-    contentType:String
-    }, 
+  applicantImage: String, 
 
     address:String,
     country:String,
@@ -34,10 +31,7 @@ const ShayataApplicationSchema = new mongoose.Schema({
   // Beneficiary Details
   BeneficiaryUser: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   beneficiaryName: String,
-  beneficiaryImage: {
-    data:Buffer,
-    contentType:String
-    },
+  beneficiaryImage: String,
   beneficiaryAge: Number,
   beneficiaryBirthDate: Date,
   isTrustMember:Boolean,

@@ -1,25 +1,35 @@
 const ShayataApplication = require('../models/ShayataMember');
+const cloudinary = require('../config/cloudinary');
+const bufferToStream = require('../utils/multer');
 
-// Create a new application (Step 1 only)
 exports.createApplication = async (req, res) => {
   try {
     const data = req.body;
 
-    const profileImage = req.files['applicantImage']?.[0];
-    const coverImage = req.files['beneficiaryImage']?.[0];
+    const applicantImage = req.files['applicantImage']?.[0];
+    const beneficiaryImage = req.files['beneficiaryImage']?.[0];
 
-    req.body.applicantImage = {
-        data: profileImage.buffer,
-        contentType: profileImage.mimetype,
-      };
-  
-      req.body.beneficiaryImage = {
-        data: coverImage.buffer,
-        contentType: coverImage.mimetype,
-      };
+    const uploadToCloudinary = (fileBuffer) => 
+      new Promise((resolve,reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {resource_type:"image"},
+          (error,result) => {
+            if(error) reject(error);
+            else resolve(result.secure_url);
+          }
+        );
+        bufferToStream(fileBuffer).pipe(stream);
+      });
+
+      const applicantImageUrl = applicantImage &&  await uploadToCloudinary(applicantImage.buffer);
+      const beneficiaryImageUrl = beneficiaryImage && await uploadToCloudinary(beneficiaryImage.buffer);
+
+      data.applicantImage = applicantImageUrl;
+      data.beneficiaryImage = beneficiaryImageUrl;
 
     const app = new ShayataApplication(req.body);
     const savedApp = await app.save();
+
     res.status(201).json(savedApp);
   } catch (error) {
     res.status(400).json({ error: error.message });
