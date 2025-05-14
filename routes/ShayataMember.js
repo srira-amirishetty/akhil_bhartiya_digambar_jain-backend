@@ -13,15 +13,15 @@ router.post('/Shayata-application',upload.fields([
   ]), shayataController.createApplication);
 
 // Update application by ID
-router.put('Shayata-application-update/:id',upload.fields([
+router.put('/Shayata-application-update/:id',upload.fields([
     { name: 'applicantImage', maxCount: 1 },
     { name: 'beneficiaryImage', maxCount: 1 }
   ]), shayataController.updateApplication);
 
 // Get application by ID
-router.get('Shayata-applicantGetbyId/:id', shayataController.getApplicationById);
-router.get('get-all-shayata-applicants',shayataController.getAllApplications)
-router.get('get-applicants-by-search',shayataController.searchApplicantByName)
+router.get('/Shayata-applicantGetbyId/:id', shayataController.getApplicationById);
+router.get('/get-all-shayata-applicants',shayataController.getAllApplications)
+router.get('/get-applicants-by-search',shayataController.searchApplicantByName)
 
 
 module.exports = router;

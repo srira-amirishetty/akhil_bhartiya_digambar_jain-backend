@@ -1,31 +1,18 @@
 const ShayataApplication = require('../models/ShayataMember');
-const cloudinary = require('../config/cloudinary');
-const bufferToStream = require('../utils/multer');
+const uploadToCloudinary = require('../config/cloudinary');
+
 
 exports.createApplication = async (req, res) => {
   try {
-    const data = req.body;
 
     const applicantImage = req.files['applicantImage']?.[0];
     const beneficiaryImage = req.files['beneficiaryImage']?.[0];
 
-    const uploadToCloudinary = (fileBuffer) => 
-      new Promise((resolve,reject) => {
-        const stream = cloudinary.uploader.upload_stream(
-          {resource_type:"image"},
-          (error,result) => {
-            if(error) reject(error);
-            else resolve(result.secure_url);
-          }
-        );
-        bufferToStream(fileBuffer).pipe(stream);
-      });
-
       const applicantImageUrl = applicantImage &&  await uploadToCloudinary(applicantImage.buffer);
       const beneficiaryImageUrl = beneficiaryImage && await uploadToCloudinary(beneficiaryImage.buffer);
 
-      data.applicantImage = applicantImageUrl;
-      data.beneficiaryImage = beneficiaryImageUrl;
+      req.body.applicantImage = applicantImageUrl;
+      req.body.beneficiaryImage = beneficiaryImageUrl;
 
     const app = new ShayataApplication(req.body);
     const savedApp = await app.save();
@@ -39,22 +26,15 @@ exports.createApplication = async (req, res) => {
 // Update existing application
 exports.updateApplication = async (req, res) => {
   try {
-    const profileImage = req.files['applicantImage']?.[0];
-    const coverImage = req.files['beneficiaryImage']?.[0];
 
-    if(profileImage){
-      req.body.applicantImage = {
-        data: profileImage.buffer,
-        contentType: profileImage.mimetype,
-      };
-    }
-  
-    if(coverImage){
-      req.body.beneficiaryImage = {
-        data: coverImage.buffer,
-        contentType: coverImage.mimetype,
-      };
-    }
+    const applicantImage = req.files['applicantImage']?.[0];
+    const beneficiaryImage = req.files['beneficiaryImage']?.[0];
+
+      const applicantImageUrl = applicantImage &&  await uploadToCloudinary(applicantImage.buffer);
+      const beneficiaryImageUrl = beneficiaryImage && await uploadToCloudinary(beneficiaryImage.buffer);
+
+      req.body.applicantImage = applicantImageUrl;
+      req.body.beneficiaryImage = beneficiaryImageUrl;
 
 
     const updated = await ShayataApplication.findByIdAndUpdate(
