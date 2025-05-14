@@ -8,10 +8,7 @@ const financeSchema = new mongoose.Schema({
     expectedexpenses:{type:Number},
     expectedhelp:{type:Number},
     indetail:{type:String},
-    images:[{
-        data:Buffer,
-        contentType:String
-    }]
+    images:[{type:String}]
 })
 
 module.exports = mongoose.model('finance',financeSchema);
