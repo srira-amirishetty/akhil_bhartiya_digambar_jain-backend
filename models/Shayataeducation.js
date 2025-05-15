@@ -8,9 +8,7 @@ const educationSchema = new mongoose.Schema({
     expectedhelp:{type:Number},
     expectedhelp:{type:Number},
     explainindetail:{type:String},
-    images:[{data:Buffer,
-        contentType:String
-    }]
+    images:[{Type:String}]
 })
 
 module.exports = mongoose.model('education',educationSchema);
