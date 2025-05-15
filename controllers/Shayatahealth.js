@@ -27,11 +27,11 @@ exports.health = async (req,res)  =>  {
 exports.updatehealthByApplicant = async (req,res) => {
     try{
 
-      console.log('Files received:', req.files);
+      // console.log('Files received:', req.files);
 
         const {applicantId} = req.params;
 
-        console.log(applicantId)
+        // console.log(applicantId)
       
         if (!applicantId) {
       return res.status(400).json({ error: 'Missing applicantId in request params' });
