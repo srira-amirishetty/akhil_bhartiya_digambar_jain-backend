@@ -26,7 +26,7 @@ exports.finance = async (req,res)  =>  {
 exports.updatefinanceByApplicant = async (req,res) => {
     try{
 
-        console.log('Files received:', req.files);
+        // console.log('Files received:', req.files);
 
         const {applicantId} = req.params;
 

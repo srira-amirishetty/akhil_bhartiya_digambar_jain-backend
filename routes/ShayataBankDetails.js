@@ -7,8 +7,8 @@ const storage = multer.memoryStorage();
 const upload = multer({storage:storage});
 
 router.post('/ShayataBank-create', upload.single('image') ,bankdetailsController.create)
-router.put('/ShayataBank-update/:id', upload.array('images',10) ,bankdetailsController.update)
-router.get('/ShayataBank-GetbyID/:id', bankdetailsController.getItemById);
+router.put('/ShayataBank-update/:applicantId', upload.single('image') ,bankdetailsController.update)
+router.get('/ShayataBank-GetbyID/:applicantId', bankdetailsController.getItemById);
 // router.delete('/ShayataBank-Delete/:id',authorizedUserController.deleteItemById)
 
 

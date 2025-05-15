@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 
 const BankSchema = new mongoose.Schema({
+ applicantId: { type: mongoose.Schema.Types.ObjectId, ref: 'ShayataApplication' },
   accountHolderName: String,
   bankName: String,
   branchName: String,
   ifscCode: String,
   accountNumber: String,
-  img: {
-    data: Buffer,
-    contentType: String
-  },
+  img:  String
+  ,
   date: {
     type: Date,
     default: Date.now

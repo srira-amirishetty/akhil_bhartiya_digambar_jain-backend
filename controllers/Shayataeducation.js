@@ -1,19 +1,18 @@
 const educationModal = require('../models/Shayataeducation')
+const uploadToCloudinary = require('../config/cloudinary');
+const mongoose = require('mongoose');
 
-exports.health = async (req,res)  =>  {
+exports.education = async (req,res)  =>  {
     try{
-    const data = req.body;
-
-    // req.body.img = {
-    //     data:req.file.buffer,
-    //     contentType:req.file.mimetype
-    // } 
+    //  console.log('Files received:', req.files);
 
     if (req.files && req.files.length > 0) {
-        req.body.images = req.files.map(file => ({
-          data: file.buffer,
-          contentType: file.mimetype
-        }));
+      const imageUrls = await Promise.all(
+        req.files.map(file => {
+          if (!file.buffer) throw new Error('Missing file buffer');
+          return uploadToCloudinary(file.buffer)})
+      );
+        req.body.images = imageUrls;
       }
 
     const educationData = new educationModal(req.body)
@@ -29,18 +28,22 @@ exports.updateeducationByApplicant = async (req,res) => {
 
         const {applicantId} = req.params;
 
-        const updateData = {...req.body};
+          if (!applicantId) {
+      return res.status(400).json({ error: 'Missing applicantId in request params' });
+    }
 
         if (req.files && req.files.length > 0) {
-            updateData.images = req.files.map(file => ({
-              data: file.buffer,
-              contentType: file.mimetype
-            }));
-          }
+      const imageUrls = await Promise.all(
+        req.files.map(file => {
+          if (!file.buffer) throw new Error('Missing file buffer');
+          return uploadToCloudinary(file.buffer)})
+      );
+        req.body.images = imageUrls;
+      }
 
-        const updatededucationData = await educationModal.findByIdAndUpdate(
-            {applicant:applicantId},
-            updateData,
+        const updatededucationData = await educationModal.findOneAndUpdate(
+            {applicant: new mongoose.Types.ObjectId(applicantId)},
+            req.body,
             {new:true}
         );
         if (!updatededucationData) {
@@ -55,7 +58,7 @@ exports.updateeducationByApplicant = async (req,res) => {
 exports.geteducationbyApplicant = async (req,res) => {
     try{
         const {applicantId} = req.params;
-        const educationData = await educationModal.findOne({applicant:applicantId});
+        const educationData = await educationModal.findOne({applicant:new mongoose.Types.ObjectId(applicantId)});
 
         if (!educationData) {
             return res.status(404).json({ message: 'No education data found for this applicant' });

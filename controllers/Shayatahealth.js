@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 exports.health = async (req,res)  =>  {
     try{
 
-      console.log('Files received:', req.files);
+      // console.log('Files received:', req.files);
 
     if (req.files && req.files.length > 0) {
       const imageUrls = await Promise.all(

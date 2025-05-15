@@ -3,6 +3,7 @@ const { Schema, model } = mongoose;
 
 const DropDownSchema = new Schema({
   sansta: [String],
+  mandal:[String]
 });
 const DropDownModal = model('DropDown', DropDownSchema);
 

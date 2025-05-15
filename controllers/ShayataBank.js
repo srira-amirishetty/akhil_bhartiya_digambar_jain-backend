@@ -1,11 +1,21 @@
+const uploadToCloudinary = require('../config/cloudinary');
 const BankDetailsModel = require('../models/ShayataBankDetails');
+const mongoose = require('mongoose');
 
 exports.create = async (req,res) => {
     try{
-    req.body.img= {
-        data:req.file.buffer,
-        contentType:req.file.mimetype
-    }
+
+        const image = req.file 
+
+        // console.log(image)
+
+        const imageurl = image && await uploadToCloudinary(image.buffer);
+
+        // console.log(imageurl)
+
+
+        req.body.img = imageurl
+
 
     const bankdetailsData = new BankDetailsModel(req.body)
     await bankdetailsData.save()
@@ -17,17 +27,17 @@ exports.create = async (req,res) => {
 
 exports.update = async (req,res) => {
     try{
-        const {id} =req.params;
+        const {applicantId} =req.params;
 
-        if(req.file){
-            req.body.img= {
-                data:req.file.buffer,
-                contentType:req.file.mimetype
-            }
-        }
+         if (!applicantId) {
+      return res.status(400).json({ error: 'Missing applicantId in request params' });
+    }
+        const image = req.file 
+        const imageurl = image && await uploadToCloudinary(image.buffer);
+        req.body.img = imageurl
 
-        const updatedUserData = await BankDetailsModel.findByIdAndUpdate(
-            {_id:id},
+        const updatedUserData = await BankDetailsModel.findOneAndUpdate(
+            {applicantId:new mongoose.Types.ObjectId(applicantId)},
             req.body,
             {new:true}
         );
@@ -66,9 +76,9 @@ exports.update = async (req,res) => {
 
   exports.getItemById = async (req,res) => {
     try {
-        const { id } = req.params;
+        const { applicantId } = req.params;
     
-        const member = await BankDetailsModel.findById(id);
+        const member = await BankDetailsModel.findOne({applicantId: new mongoose.Types.ObjectId(applicantId)});
     
         if (!member) {
           return res.status(404).json({ message: "Member not found" });
