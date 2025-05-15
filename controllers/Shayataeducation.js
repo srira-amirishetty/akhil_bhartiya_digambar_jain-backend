@@ -15,12 +15,12 @@ exports.education = async (req,res)  =>  {
         req.body.images = imageUrls;
       }
 
-    const educationData = new educationModal(req.body)
-    await educationData.save()
-    res.status(201).send(educationData)
-}catch (error){
-    res.status(400).json({error:error.message})
-}
+    const educationData = new educationModal(req.body);
+    await educationData.save();
+    res.status(201).send(educationData);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 exports.updateeducationByApplicant = async (req,res) => {
@@ -60,13 +60,14 @@ exports.geteducationbyApplicant = async (req,res) => {
         const {applicantId} = req.params;
         const educationData = await educationModal.findOne({applicant:new mongoose.Types.ObjectId(applicantId)});
 
-        if (!educationData) {
-            return res.status(404).json({ message: 'No education data found for this applicant' });
-          }
+    if (!educationData) {
+      return res
+        .status(404)
+        .json({ message: "No education data found for this applicant" });
+    }
 
-        res.status(200).json(educationData);  
-    }catch (error) {
-        res.status(400).json({ error: error.message });
-      }
-}
-
+    res.status(200).json(educationData);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

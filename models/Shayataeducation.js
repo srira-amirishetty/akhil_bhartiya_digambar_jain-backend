@@ -10,6 +10,7 @@ const educationSchema = new mongoose.Schema({
     explainindetail:{type:String},
     images:[{type:String
     }]
+
 })
 
 module.exports = mongoose.model('education',educationSchema);
