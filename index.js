@@ -20,6 +20,8 @@ const ShayataBanDetailsRoute = require('./routes/ShayataBankDetails')
 const donationRoute = require('./routes/donation')
 const memberRoute = require('./routes/member')
 const memberUpdateRoute = require('./routes/memberUpdate')
+const sanstaRoute = require('./routes/sansta')
+const shakshaRoute = require('./routes/shaksha')
 
 app.use('/api',ShayatahealthRoute);
 app.use('/api',ShayataeducationRoutes)
@@ -29,7 +31,8 @@ app.use('/api/',ShayataBanDetailsRoute)
 app.use('/api/',donationRoute);
 app.use('/api/',memberRoute)
 app.use('/api/',memberUpdateRoute);
-
+app.use('/api/',sanstaRoute)
+app.use('/api/',shakshaRoute);
 
 
 // Error handling middleware
