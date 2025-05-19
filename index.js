@@ -20,6 +20,7 @@ const ShayataBanDetailsRoute = require('./routes/ShayataBankDetails')
 const donationRoute = require('./routes/donation')
 const memberRoute = require('./routes/member')
 const memberUpdateRoute = require('./routes/memberUpdate')
+const sanstaRoutes = require('./routes/sansta');
 
 app.use('/api',ShayatahealthRoute);
 app.use('/api',ShayataeducationRoutes)
@@ -29,6 +30,7 @@ app.use('/api/',ShayataBanDetailsRoute)
 app.use('/api/',donationRoute);
 app.use('/api/',memberRoute)
 app.use('/api/',memberUpdateRoute);
+app.use('/api/',sanstaRoutes)
 
 
 
