@@ -15,8 +15,11 @@ const memberRoutes = require('./routes/memberRoutes')
 const ShayatahealthRoute = require('./routes/Shayatahealth');
 const updatememberRoutes = require('./routes/memberUpdateRoutes')
 const jainLiteratureRoutes = require('./routes/jainLiteratureRoutes');
+const jainMandirRoutes = require('./routes/jainMandirRoutes');
+const galleryRoutes = require('./routes/galleryRoutes');
 
-
+app.use('/api/gallery', galleryRoutes);
+app.use('/api/jain-mandir', jainMandirRoutes);
 app.use('/api', ShayatahealthRoute);
 app.use('/api',memberRoutes)
 app.use('/api',updatememberRoutes)

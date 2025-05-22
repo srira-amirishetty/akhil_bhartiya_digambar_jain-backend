@@ -24,7 +24,6 @@ exports.saveBusinessInfo = async (req, res) => {
   }
 };
 
-// Step 3: Save Other Info
 exports.saveOtherInfo = async (req, res) => {
   try {
     const otherInfo = new OtherInfo(req.body);
@@ -35,7 +34,6 @@ exports.saveOtherInfo = async (req, res) => {
   }
 };
 
-// get members
 exports.getMembers = async (req, res) => {
   try {
     const limit = 10;
