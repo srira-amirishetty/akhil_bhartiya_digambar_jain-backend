@@ -45,14 +45,14 @@ exports.updatesanstaByApplicant = async (req,res) => {
         req.body.images = imageUrls;
       }
 
-        const updatedsanstaData = await sanstaModal.findOneAndUpdate(
-             {id},
+        const updatedsanstaData = await sanstaModal.findByIdAndUpdate(
+             id,
             // req.params.id,
             req.body,
             {new:true}
         );
         if (!updatedsanstaData) {
-            return res.status(404).json({ message: 'Health record not found for applicant' });
+            return res.status(404).json({ message: 'sansta record not found for applicant' });
           }
         res.status(200).json(updatedsanstaData)
     }catch(error){
@@ -63,10 +63,10 @@ exports.updatesanstaByApplicant = async (req,res) => {
 exports.getsanstabyApplicant = async (req,res) => {
     try{
         const {id} = req.params;
-        const sanstaData = await sanstaModal.findOne({id});
+        const sanstaData = await sanstaModal.findById(id);
 
         if (!sanstaData) {
-            return res.status(404).json({ message: 'No health data found for this applicant' });
+            return res.status(404).json({ message: 'No sansta data found for this applicant' });
           }
 
         res.status(200).json(sanstaData);  
@@ -75,3 +75,40 @@ exports.getsanstabyApplicant = async (req,res) => {
       }
 }
 
+exports.getsanstas = async (req, res) => {
+  try {
+    const limit = 5;
+    const page = parseInt(req.query.page) || 1;
+    const search = req.query.search || "";
+
+    const query = search ? {
+        title:{ $regex: search, $options: 'i' }      
+    }:{};
+
+    const total = await sanstaModal.countDocuments(query);
+    
+
+    const sanstas = await sanstaModal.find(query).select('title -_id').skip((page-1)*limit).limit(limit);
+
+    
+    res.status(201).json({data:sanstas,page,totalPages: Math.ceil(total/limit) });
+  } catch (error) {
+    res.status(500).json({ err: error.message });
+  }
+  };
+
+    exports.deleteItemById = async (req,res) => {
+    try {
+        const { id } = req.params;
+    
+        const member = await sanstaModal.findByIdAndDelete(id);
+    
+        if (!member) {
+          return res.status(404).json({ message: "sansta not found" });
+        }
+    
+        res.status(200).json({ message:"sansta deleted successfully" });
+      } catch (error) {
+        res.status(500).json({ err: error.message });
+      }
+  }

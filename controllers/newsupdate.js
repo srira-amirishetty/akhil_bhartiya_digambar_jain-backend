@@ -1,7 +1,7 @@
-const newsupdateModal = require('../models/newsupdate')
+const newsupadteModal = require('../models/newsupadte')
 const uploadToCloudinary = require('../config/cloudinary'); 
 
-exports.newsupdate = async (req,res)  =>  {
+exports.newsupadte = async (req,res)  =>  {
     try{
 
       // console.log('Files received:', req.files);
@@ -15,15 +15,15 @@ exports.newsupdate = async (req,res)  =>  {
         req.body.images = imageUrls;
       }
 
-    const newsupdateData = new newsupdateModal(req.body)
-    await newsupdateData.save()
-    res.status(201).send(newsupdateData)
+    const newsupadteData = new newsupadteModal(req.body)
+    await newsupadteData.save()
+    res.status(201).send(newsupadteData)
 }catch (error){
     res.status(400).json({error:error.message})
 }
 };
 
-exports.updatenewsupdateByApplicant = async (req,res) => {
+exports.updatenewsupadteByApplicant = async (req,res) => {
     try{
 
       // console.log('Files received:', req.files);
@@ -45,33 +45,70 @@ exports.updatenewsupdateByApplicant = async (req,res) => {
         req.body.images = imageUrls;
       }
 
-        const updatednewsupdateData = await newsupdateModal.findOneAndUpdate(
-             {id},
+        const updatednewsupadteData = await newsupadteModal.findByIdAndUpdate(
+             id,
             // req.params.id,
             req.body,
             {new:true}
         );
-        if (!updatednewsupdateData) {
-            return res.status(404).json({ message: 'record not found for applicant' });
+        if (!updatednewsupadteData) {
+            return res.status(404).json({ message: 'newsupadte record not found for applicant' });
           }
-        res.status(200).json(updatednewsupdateData)
+        res.status(200).json(updatednewsupadteData)
     }catch(error){
         res.status(400).json({error:error.message})
     }
 }
 
-exports.getnewsupdatebyApplicant = async (req,res) => {
+exports.getnewsupadtebyApplicant = async (req,res) => {
     try{
         const {id} = req.params;
-        const newsupdateData = await newsupdateModal.findOne({id});
+        const newsupadteData = await newsupadteModal.findById(id);
 
-        if (!newsupdateData) {
-            return res.status(404).json({ message: 'No data found for this applicant' });
+        if (!newsupadteData) {
+            return res.status(404).json({ message: 'No newsupadte data found for this applicant' });
           }
 
-        res.status(200).json(newsupdateData);  
+        res.status(200).json(newsupadteData);  
     }catch (error) {
         res.status(400).json({ error: error.message });
       }
 }
 
+exports.getnewsupadtes = async (req, res) => {
+  try {
+    const limit = 5;
+    const page = parseInt(req.query.page) || 1;
+    const search = req.query.search || "";
+
+    const query = search ? {
+        title:{ $regex: search, $options: 'i' }      
+    }:{};
+
+    const total = await newsupadteModal.countDocuments(query);
+    
+
+    const newsupadtes = await newsupadteModal.find(query).select('title -_id').skip((page-1)*limit).limit(limit);
+
+    
+    res.status(201).json({data:newsupadtes,page,totalPages: Math.ceil(total/limit) });
+  } catch (error) {
+    res.status(500).json({ err: error.message });
+  }
+  };
+
+    exports.deleteItemById = async (req,res) => {
+    try {
+        const { id } = req.params;
+    
+        const member = await newsupadteModal.findByIdAndDelete(id);
+    
+        if (!member) {
+          return res.status(404).json({ message: "newsupadte not found" });
+        }
+    
+        res.status(200).json({ message:"newsupadte deleted successfully" });
+      } catch (error) {
+        res.status(500).json({ err: error.message });
+      }
+  }

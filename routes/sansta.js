@@ -9,6 +9,8 @@ const upload = multer({storage:storage});
 router.post('/sansta', upload.array('images',10) ,sanstaController.sansta)
 router.put('/sansta/:id', upload.array('images',10) ,sanstaController.updatesanstaByApplicant)
 router.get('/sansta/:id', sanstaController.getsanstabyApplicant);
+router.get('/sansta/:id', sanstaController.getsanstas);
+router.delete('/sansta/:id',sanstaController.deleteItemById)
 
 
 // export default router;
