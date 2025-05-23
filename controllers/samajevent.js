@@ -88,7 +88,7 @@ exports.getsamajevents = async (req, res) => {
     const total = await samajeventModal.countDocuments(query);
     
 
-    const samajevents = await samajeventModal.find(query).select('title -_id').skip((page-1)*limit).limit(limit);
+    const samajevents = await samajeventModal.find(query).skip((page-1)*limit).limit(limit);
 
     
     res.status(201).json({data:samajevents,page,totalPages: Math.ceil(total/limit) });

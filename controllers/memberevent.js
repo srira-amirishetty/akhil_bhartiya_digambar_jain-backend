@@ -88,7 +88,7 @@ exports.getmemberevents = async (req, res) => {
     const total = await membereventModal.countDocuments(query);
     
 
-    const memberevents = await membereventModal.find(query).select('title -_id').skip((page-1)*limit).limit(limit);
+    const memberevents = await membereventModal.find(query).skip((page-1)*limit).limit(limit);
 
     
     res.status(201).json({data:memberevents,page,totalPages: Math.ceil(total/limit) });

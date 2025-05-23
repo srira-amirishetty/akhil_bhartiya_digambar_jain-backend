@@ -77,7 +77,7 @@ exports.getnewsupadtebyApplicant = async (req,res) => {
 
 exports.getnewsupadtes = async (req, res) => {
   try {
-    const limit = 5;
+    const limit = 3;
     const page = parseInt(req.query.page) || 1;
     const search = req.query.search || "";
 
@@ -88,7 +88,7 @@ exports.getnewsupadtes = async (req, res) => {
     const total = await newsupadteModal.countDocuments(query);
     
 
-    const newsupadtes = await newsupadteModal.find(query).select('title -_id').skip((page-1)*limit).limit(limit);
+    const newsupadtes = await newsupadteModal.find(query).skip((page-1)*limit).limit(limit);
 
     
     res.status(201).json({data:newsupadtes,page,totalPages: Math.ceil(total/limit) });
