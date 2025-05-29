@@ -9,7 +9,8 @@ const upload = multer({storage:storage});
 router.post('/samajevent', upload.array('images',10) ,samajeventController.samajevent)
 router.put('/samajevent/:id', upload.array('images',10) ,samajeventController.updatesamajeventByApplicant)
 router.get('/samajevent/:id', samajeventController.getsamajeventbyApplicant);
-
+router.get('/samajevent/:id', samajeventController.getsamajevents);
+router.delete('/samajevent/:id',samajeventController.deleteItemById)
 
 // export default router;
 module.exports= router;

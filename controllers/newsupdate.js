@@ -1,4 +1,4 @@
-const newsupadteModal = require('../models/newsupadte')
+const newsupadteModal = require('../models/newsupdate')
 const uploadToCloudinary = require('../config/cloudinary'); 
 
 exports.newsupadte = async (req,res)  =>  {

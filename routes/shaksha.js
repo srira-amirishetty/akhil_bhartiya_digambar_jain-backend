@@ -9,7 +9,9 @@ const upload = multer({storage:storage});
 router.post('/shaksha', upload.array('images',10) ,shakshaController.shaksha)
 router.put('/shaksha/:id', upload.array('images',10) ,shakshaController.updateshakshaByApplicant)
 router.get('/shaksha/:id', shakshaController.getshakshabyApplicant);
-
+router.get('/shaksha/:id', shakshaController.getshakshas);
+router.delete('/shaksha/:id',shakshaController.deleteItemById)
 
 // export default router;
 module.exports= router;
+

@@ -24,28 +24,26 @@ const ShayataBanDetailsRoute = require('./routes/ShayataBankDetails')
 const donationRoute = require('./routes/donation')
 const memberRoute = require('./routes/member')
 const memberUpdateRoute = require('./routes/memberUpdate')
-<<<<<<< HEAD
 const sanstaRoute = require('./routes/sansta')
 const shakshaRoute = require('./routes/shaksha')
-=======
-const sanstaRoutes = require('./routes/sansta');
->>>>>>> e220276ec7573435dca51b55cf9b8128ae3470f8
+const newsupdate = require('./routes/newsupdate')
+const memberevent = require('./routes/memberevent')
+const samajevent = require('./routes/samajevent')
+
 
 app.use('/api',ShayatahealthRoute);
 app.use('/api',ShayataeducationRoutes)
 app.use('/api',ShayataMemberRoute);
-app.use('/api/',ShayataFinanceRoute)
-app.use('/api/',ShayataBanDetailsRoute)
+app.use('/api/',ShayataFinanceRoute);
+app.use('/api/',ShayataBanDetailsRoute);
 app.use('/api/',donationRoute);
-app.use('/api/',memberRoute)
+app.use('/api/',memberRoute);
 app.use('/api/',memberUpdateRoute);
-<<<<<<< HEAD
-app.use('/api/',sanstaRoute)
+app.use('/api/',sanstaRoute);
 app.use('/api/',shakshaRoute);
-=======
-app.use('/api/',sanstaRoutes)
-
->>>>>>> e220276ec7573435dca51b55cf9b8128ae3470f8
+app.use('/api/',newsupdate);
+app.use('/api/',memberevent);
+app.use('/api/',samajevent);
 
 
 // Error handling middleware
