@@ -1,7 +1,7 @@
-const newsupadteModal = require('../models/newsupdate')
+const newsupdateModal = require('../models/newsupdate')
 const uploadToCloudinary = require('../config/cloudinary'); 
 
-exports.newsupadte = async (req,res)  =>  {
+exports.newsupdate = async (req,res)  =>  {
     try{
 
       // console.log('Files received:', req.files);
@@ -15,15 +15,15 @@ exports.newsupadte = async (req,res)  =>  {
         req.body.images = imageUrls;
       }
 
-    const newsupadteData = new newsupadteModal(req.body)
-    await newsupadteData.save()
-    res.status(201).send(newsupadteData)
+    const newsupdateData = new newsupdateModal(req.body)
+    await newsupdateData.save()
+    res.status(201).send(newsupdateData)
 }catch (error){
     res.status(400).json({error:error.message})
 }
 };
 
-exports.updatenewsupadteByApplicant = async (req,res) => {
+exports.updatenewsupdateByApplicant = async (req,res) => {
     try{
 
       // console.log('Files received:', req.files);
@@ -45,37 +45,37 @@ exports.updatenewsupadteByApplicant = async (req,res) => {
         req.body.images = imageUrls;
       }
 
-        const updatednewsupadteData = await newsupadteModal.findByIdAndUpdate(
+        const updatednewsupdateData = await newsupdateModal.findByIdAndUpdate(
              id,
             // req.params.id,
             req.body,
             {new:true}
         );
-        if (!updatednewsupadteData) {
-            return res.status(404).json({ message: 'newsupadte record not found for applicant' });
+        if (!updatednewsupdateData) {
+            return res.status(404).json({ message: 'newsupdate record not found for applicant' });
           }
-        res.status(200).json(updatednewsupadteData)
+        res.status(200).json(updatednewsupdateData)
     }catch(error){
         res.status(400).json({error:error.message})
     }
 }
 
-exports.getnewsupadtebyApplicant = async (req,res) => {
+exports.getnewsupdatebyApplicant = async (req,res) => {
     try{
         const {id} = req.params;
-        const newsupadteData = await newsupadteModal.findById(id);
+        const newsupdateData = await newsupdateModal.findById(id);
 
-        if (!newsupadteData) {
-            return res.status(404).json({ message: 'No newsupadte data found for this applicant' });
+        if (!newsupdateData) {
+            return res.status(404).json({ message: 'No newsupdate data found for this applicant' });
           }
 
-        res.status(200).json(newsupadteData);  
+        res.status(200).json(newsupdateData);  
     }catch (error) {
         res.status(400).json({ error: error.message });
       }
 }
 
-exports.getnewsupadtes = async (req, res) => {
+exports.getnewsupdates = async (req, res) => {
   try {
     const limit = 3;
     const page = parseInt(req.query.page) || 1;
@@ -85,13 +85,13 @@ exports.getnewsupadtes = async (req, res) => {
         title:{ $regex: search, $options: 'i' }      
     }:{};
 
-    const total = await newsupadteModal.countDocuments(query);
+    const total = await newsupdateModal.countDocuments(query);
     
 
-    const newsupadtes = await newsupadteModal.find(query).skip((page-1)*limit).limit(limit);
+    const newsupdates = await newsupdateModal.find(query).skip((page-1)*limit).limit(limit);
 
     
-    res.status(201).json({data:newsupadtes,page,totalPages: Math.ceil(total/limit) });
+    res.status(201).json({data:newsupdates,page,totalPages: Math.ceil(total/limit) });
   } catch (error) {
     res.status(500).json({ err: error.message });
   }
@@ -101,13 +101,13 @@ exports.getnewsupadtes = async (req, res) => {
     try {
         const { id } = req.params;
     
-        const member = await newsupadteModal.findByIdAndDelete(id);
+        const member = await newsupdateModal.findByIdAndDelete(id);
     
         if (!member) {
-          return res.status(404).json({ message: "newsupadte not found" });
+          return res.status(404).json({ message: "newsupdate not found" });
         }
     
-        res.status(200).json({ message:"newsupadte deleted successfully" });
+        res.status(200).json({ message:"newsupdate deleted successfully" });
       } catch (error) {
         res.status(500).json({ err: error.message });
       }

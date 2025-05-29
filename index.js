@@ -1,20 +1,21 @@
 const express = require("express");
 const app = express()
-const db = require('./config/db')
+// const db = require('./config/db')
 require('dotenv').config();
 
 const cors = require('cors');
+
 const errorHandler = require('./middlewares/errorHandler');
-
-app.use(cors());
-
 const connectDB = require('./config/db');
 connectDB();
 
 // database connection
-db()
+// db()
 
+app.use(cors());
 app.use(express.json());
+
+
 
 const ShayatahealthRoute = require('./routes/Shayatahealth')
 const ShayataeducationRoutes = require('./routes/Shayataeducation')
@@ -31,9 +32,9 @@ const memberevent = require('./routes/memberevent')
 const samajevent = require('./routes/samajevent')
 
 
-app.use('/api',ShayatahealthRoute);
-app.use('/api',ShayataeducationRoutes)
-app.use('/api',ShayataMemberRoute);
+app.use('/api/',ShayatahealthRoute);
+app.use('/api/',ShayataeducationRoutes)
+app.use('/api/',ShayataMemberRoute);
 app.use('/api/',ShayataFinanceRoute);
 app.use('/api/',ShayataBanDetailsRoute);
 app.use('/api/',donationRoute);
