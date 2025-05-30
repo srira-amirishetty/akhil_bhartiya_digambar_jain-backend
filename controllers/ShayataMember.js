@@ -77,7 +77,7 @@ exports.searchApplicantByName = async (req,res) => {
 
       const query={}
   
-      if(search){query.name = { $regex: search, $options: 'i' }};
+      if(search){query.applicantName = { $regex: search, $options: 'i' }};
   
     const members = await ShayataApplication.find(query)
 
