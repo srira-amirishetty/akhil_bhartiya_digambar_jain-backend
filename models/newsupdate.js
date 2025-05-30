@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const shakaSchema = new mongoose.Schema({
+const newsupdateSchema = new mongoose.Schema({
     title:{type:String},
     description:{type:String},
     images:[{
@@ -8,4 +8,4 @@ const shakaSchema = new mongoose.Schema({
     }]
 })
 
-module.exports = mongoose.model('shaka',shakaSchema);
+module.exports = mongoose.model('newsupdate',newsupdateSchema);

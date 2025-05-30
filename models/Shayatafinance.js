@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 
 const financeSchema = new mongoose.Schema({
     applicant: { type: mongoose.Schema.Types.ObjectId, ref: 'ShayataApplication' },
-    typeofhelp:{type:String},
     employeetype:{type:String},
-    typeofhelp:{type:String},
-    expectedexpenses:{type:Number},
+    reasonofhelp:{type:String},
     expectedhelp:{type:Number},
-    indetail:{type:String},
+    explainindetail:{type:String},
     images:[{type:String}]
 })
 
