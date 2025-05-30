@@ -24,8 +24,8 @@ const ShayataApplicationSchema = new mongoose.Schema({
     country:String,
     city: String,
     state: String,
-    pinCode: String,
-    mobileNumber:String,
+    pinCode: Number,
+    mobileNumber:Number,
   
 
   // Beneficiary Details
@@ -65,11 +65,11 @@ const ShayataApplicationSchema = new mongoose.Schema({
     amount:Number
   }],
 
-//   status: {
-//     type: String,
-//     enum: ['Draft', 'Submitted'],
-//     default: 'Draft'
-//   }
+  status: {
+    type: Boolean,
+    default: false
+  }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('ShayataApplication', ShayataApplicationSchema);
