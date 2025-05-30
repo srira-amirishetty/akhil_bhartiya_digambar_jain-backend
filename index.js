@@ -30,7 +30,9 @@ const shakshaRoute = require('./routes/shaksha')
 const newsupdate = require('./routes/newsupdate')
 const memberevent = require('./routes/memberevent')
 const samajevent = require('./routes/samajevent')
-
+const bagherwalmandal = require('./routes/bagherwalmandal')
+const bagherwalsangh = require('./routes/bagherwalsangh')
+const jainmandir = require('./models/jainmandir');
 
 app.use('/api/',ShayatahealthRoute);
 app.use('/api/',ShayataeducationRoutes)
@@ -45,6 +47,9 @@ app.use('/api/',shakshaRoute);
 app.use('/api/',newsupdate);
 app.use('/api/',memberevent);
 app.use('/api/',samajevent);
+app.use('/api/',bagherwalmandal);
+app.use('/api/',bagherwalsangh);
+app.use('/api/',jainmandir);
 
 
 // Error handling middleware
