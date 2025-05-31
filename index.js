@@ -34,7 +34,7 @@ const bagerwalSamajTrust = require('./routes/bagerwalSamajTrust')
 const jainLiterature = require('./routes/jainLiterature')
 const bagherwalmandal = require('./routes/bagherwalmandal')
 const bagherwalsangh = require('./routes/bagherwalsangh')
-const jainmandir = require('./models/jainmandir');
+const jainmandir = require('./routes/jainmandir');
 
 app.use('/api/',ShayatahealthRoute);
 app.use('/api/',ShayataeducationRoutes)
