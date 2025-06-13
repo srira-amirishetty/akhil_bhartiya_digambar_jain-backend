@@ -35,6 +35,7 @@ const jainLiterature = require('./routes/jainLiterature')
 const bagherwalmandal = require('./routes/bagherwalmandal')
 const bagherwalsangh = require('./routes/bagherwalsangh')
 const jainmandir = require('./routes/jainmandir');
+const trust = require('./routes/trustRoutes');
 
 app.use('/api/',ShayatahealthRoute);
 app.use('/api/',ShayataeducationRoutes)
@@ -54,6 +55,7 @@ app.use('/api/',jainLiterature);
 app.use('/api/',bagherwalmandal);
 app.use('/api/',bagherwalsangh);
 app.use('/api/',jainmandir);
+app.use("/api/", trust );
 
 // Error handling middleware
 app.use(errorHandler);
